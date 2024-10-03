@@ -6,7 +6,6 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Builder
 public class ResponseDto {
 
