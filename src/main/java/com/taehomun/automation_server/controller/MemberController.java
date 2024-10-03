@@ -3,10 +3,12 @@ package com.taehomun.automation_server.controller;
 
 import com.taehomun.automation_server.dto.MemberDto;
 import com.taehomun.automation_server.service.MemberService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,4 +30,13 @@ public class MemberController {
 
     }
 
+    @PostMapping("/update")
+    public ResponseEntity updateMember(@RequestBody MemberDto member) {
+        try{
+            memberService.updateMember(member);
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
 }
