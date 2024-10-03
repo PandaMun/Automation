@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()  // CSRF 보호 비활성화 (개발 환경에서만 사용)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/member/regist").permitAll()  // 특정 경로에 대한 접근 허용
+                        .requestMatchers("/api/member/**").permitAll()  // 특정 경로에 대한 접근 허용
                         .anyRequest().authenticated()  // 그 외의 요청은 인증 필요
                 )
                 .formLogin(login -> login  // 폼 기반 로그인 설정

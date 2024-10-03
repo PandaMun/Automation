@@ -10,6 +10,7 @@ public interface MemberService {
 
     void createMember(MemberDto member);
     void updateMember(MemberDto member);
+    void updatePassword(MemberDto member);
     void deleteMember(MemberDto member);
     List<MemberDto> getMembers();
     MemberDto getMemberById(Long id);

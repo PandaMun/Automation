@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,8 +40,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void deleteMember(MemberDto member) {
+    public void updatePassword(MemberDto memberDto) {
+        Member member = memberRepository.findByEmail(memberDto.getEmail()).get();
+        member.updatePassword(passwordEncoder.encode(memberDto.getPassword()));
+        memberRepository.save(member);
+    }
 
+    @Override
+    public void deleteMember(MemberDto memberDto) {
+        Member member = memberRepository.findByEmail(memberDto.getEmail()).get();
+        memberRepository.delete(member);
     }
 
     @Override
@@ -52,6 +59,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto getMemberById(Long id) {
-        return null;
+        Member member = memberRepository.findById(id).get();
+        return MemberDto.builder()
+                .email(member.getEmail())
+                .password(member.getPassword())
+                .phone(member.getPhone())
+                .address(member.getAddress())
+                .username(member.getUsername())
+                .build();
     }
 }
